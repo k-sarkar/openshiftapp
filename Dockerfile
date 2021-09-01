@@ -1,6 +1,8 @@
 FROM openjdk:8u302-jdk-oraclelinux8
-RUN mkdir /app
+RUN yum install -y apache-maven
+RUN mkdir /app 
 ADD * /app/
-RUN ./app/mvnw package && java -jar /app/target/openshiftapp-0.0.1.jar
+RUN cd /app
+RUN mvn clean install
 EXPOSE 8080/tcp
 ENTRYPOINT ["java","-jar","/app/target/openshiftapp-0.0.1.jar"]
