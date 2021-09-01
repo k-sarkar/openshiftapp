@@ -5,6 +5,7 @@ RUN mvn -f /home/app/pom.xml clean package && ls -l /home/app/target/
 
 
 FROM openjdk:8u302-jdk
-COPY --from=build /home/app/target/*.jar /usr/local/lib/demo.jar
+COPY --from=build /home/app/target/openshiftapp*.jar /usr/local/lib/application.jar
 EXPOSE 8080
-ENTRYPOINT ["java","-jar","/usr/local/lib/demo.jar"]
+RUN java -version
+ENTRYPOINT ["java","-jar","/usr/local/lib/application.jar"]
